@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0B6B35" />
+  <meta name="description" content="Create your Entrepreneurs' Reunion 3.0 photo card — remove background, edit single or in bulk, download a 1080×1080 image ready for social media." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <title>Reunion 3.0 · Photo Card Studio</title>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="https://toybrobd.com" target="_blank" rel="sponsored noopener"
+       aria-label="ToyBro BD — cute bag charms, keychains & desk buddies">
+      <img id="brandLogo" class="brand-logo" alt="ToyBro BD" />
+      <span class="brand-divider" aria-hidden="true"></span>
+      <span class="brand-text">
+        <span><em>ToyBroBD.com</em> — cute bag charms, keychains &amp; desk buddies</span>
+      </span>
+    </a>
+    <div class="top-actions">
+      <div class="top-badge" title="Export size">1080 × 1080 · social-ready</div>
+      <a class="top-shop" href="https://toybrobd.com" target="_blank" rel="sponsored noopener">Shop now</a>
+    </div>
+  </header>
+
+  <!-- Empty state -->
+  <main id="empty" class="empty">
+    <div class="empty-card">
+      <canvas id="miniCard" width="360" height="360" aria-hidden="true"></canvas>
+      <h1>Make your <em>Reunion&nbsp;3.0</em> photo card</h1>
+      <p>
+        Add your photo — we'll cut out the background, place it on the official
+        Entrepreneurs' Reunion&nbsp;3.0 card and give you a crisp
+        <strong>1080×1080</strong> image ready to share.
+      </p>
+      <button id="addBtn" class="btn btn-yellow btn-lg">＋ Add photos</button>
+      <span class="drop-hint">…or drop / paste images anywhere</span>
+      <ul class="features">
+        <li><span class="ico">✂️</span><div><strong>Remove background</strong><small>AI cutout, runs on your device</small></div></li>
+        <li><span class="ico">🖼️</span><div><strong>Single edit</strong><small>move, zoom &amp; flip each photo</small></div></li>
+        <li><span class="ico">📚</span><div><strong>Bulk edit</strong><small>process the whole album at once</small></div></li>
+        <li><span class="ico">⬇️</span><div><strong>Download</strong><small>single files or a ZIP</small></div></li>
+      </ul>
+      <p class="privacy">🔒 Photos never leave your device — everything runs in your browser.</p>
+      <p class="site-credit">
+        Photo-card maker by <a href="https://toybrobd.com" target="_blank" rel="noopener">ToyBroBD.com</a>
+        <span class="dot">·</span> bag charms, keychains &amp; desk buddies in Bangladesh
+      </p>
+    </div>
+  </main>
+
+  <!-- Editor -->
+  <main id="editor" class="editor hidden">
+    <section class="stage">
+      <div class="canvas-wrap">
+        <canvas id="preview" width="1080" height="1080"></canvas>
+        <div class="canvas-hint">Drag to move · scroll or pinch to zoom</div>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <!-- Ad · ToyBro BD -->
+      <a class="ad-card" href="https://toybrobd.com" target="_blank" rel="sponsored noopener"
+         aria-label="Ad: ToyBro BD — shop cute bag charms, keychains and desk buddies in Bangladesh">
+        <span class="ad-tag">AD</span>
+        <span class="ad-chip"><img id="adLogo" alt="ToyBro BD logo" /></span>
+        <span class="ad-head">Cute bag charms, keychains &amp; desk buddies</span>
+        <span class="ad-sub">Ekhan theke shekhane, ToyBro sob khane!</span>
+        <span class="ad-cta">Shop now · toybrobd.com</span>
+      </a>
+
+      <section class="group">
+        <div class="group-head">
+          <h2>Photos <span id="count" class="count-pill">0</span></h2>
+          <button id="addMore" class="btn btn-ghost btn-sm">＋ Add</button>
+        </div>
+        <div id="strip" class="strip" role="listbox" aria-label="Photos"></div>
+      </section>
+
+      <section class="group">
+        <h2>Speech cloud ☁️</h2>
+        <input id="captionInput" class="text-input" type="text" maxlength="60"
+               placeholder="আমি আসছি, আপনি আসছেন তো?" autocomplete="off" />
+        <p class="field-hint">Shown in a cloud at the top-left of the card. Clear it to hide the cloud.</p>
+      </section>
+
+      <section class="group">
+        <h2>Edit photo</h2>
+        <button id="bgBtn" class="btn btn-green">✨ Remove background</button>
+        <div id="bgStatus" class="bg-status" role="status"></div>
+        <label class="toggle" id="useCutoutWrap" hidden>
+          <input type="checkbox" id="useCutout" checked />
+          <span class="track"><span class="knob"></span></span>
+          <span>Use cutout on the card</span>
+        </label>
+        <div class="tools">
+          <button id="flipBtn" class="btn btn-ghost">⇄ Flip</button>
+          <button id="fitBtn" class="btn btn-ghost">⤢ Auto-fit</button>
+          <button id="resetBtn" class="btn btn-ghost">↺ Reset</button>
+        </div>
+        <label class="slider-row">
+          <span>Zoom</span>
+          <input type="range" id="zoom" min="100" max="320" value="100" />
+        </label>
+      </section>
+
+      <section class="group">
+        <h2>Download</h2>
+        <div class="seg" id="fmt" role="radiogroup" aria-label="Export format">
+          <button data-fmt="jpeg" class="on" role="radio" aria-checked="true">JPG · small</button>
+          <button data-fmt="png" role="radio" aria-checked="false">PNG · lossless</button>
+        </div>
+        <button id="dlBtn" class="btn btn-yellow btn-lg">⬇ Download this card</button>
+      </section>
+
+      <section class="group">
+        <h2>Bulk tools</h2>
+        <button id="bgAllBtn" class="btn btn-green-ghost">✨ Remove backgrounds for all</button>
+        <button id="fitAllBtn" class="btn btn-ghost">⤢ Auto-fit every photo</button>
+        <button id="zipBtn" class="btn btn-dark">⬇ Download all as ZIP</button>
+        <div id="bulkStatus" class="bulk-status" role="status"></div>
+      </section>
+    </aside>
+  </main>
+
+  <!-- Mobile action bar -->
+  <div id="mobilebar" class="mobilebar hidden">
+    <button id="mAdd" class="btn btn-ghost">＋ Add</button>
+    <button id="mDl" class="btn btn-yellow">⬇ Download</button>
+  </div>
+
+  <input type="file" id="file" accept="image/*" multiple hidden />
+  <div id="dropOverlay" class="drop-overlay hidden"><div class="drop-inner">Drop photos to add 📸</div></div>
+  <div id="toast" class="toast hidden" role="alert"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
