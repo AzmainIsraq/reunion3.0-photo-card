@@ -33,9 +33,33 @@ npm run build      # outputs dist/
 npm run preview    # serve dist/ locally
 ```
 
-`dist/` is a fully static site — host it anywhere (Netlify, Vercel, GitHub
-Pages, or any web server). Requires HTTPS or localhost (canvas + WASM
-requirements).
+The build uses **relative asset paths** (`base: './'`), so `dist/` works on any
+static host and under any subpath.
+
+### Deploying to Cloudflare Pages
+
+**Option A — Direct Upload (fastest):**
+
+1. Run `npm run build`.
+2. Go to Cloudflare Dashboard → Workers & Pages → Create → Pages → **Upload assets**.
+3. Drag the **`dist` folder** (the folder itself, so `index.html` sits at the root
+   of the project) and deploy.
+
+> ⚠️ Don't upload the project root — `index.html` there is the Vite source file
+> and has no built CSS/JS next to it. Always deploy `dist/`.
+
+**Option B — Wrangler CLI:**
+
+```bash
+npm run build
+npx wrangler pages deploy dist
+```
+
+`wrangler.toml` in this repo is already configured with
+`pages_build_output_dir = "dist"`.
+
+**Option C — Git integration:** set Build command `npm run build` and Build
+output directory `dist`.
 
 > **Note:** the first background removal downloads the AI model (~11 MB) from a
 > CDN; afterwards it's served from the browser cache. Everything else
