@@ -573,7 +573,7 @@ async function boot() {
   mctx.drawImage(demoDemo, 0, 0, 360, 360);
 
   // sidebar ad + navbar — ToyBro BD logo (bundled asset URL)
-  $('#adLogo').src = toybroLogoUrl;
+  $('#promoLogo').src = toybroLogoUrl;
   $('#brandLogo').src = toybroLogoUrl;
 
   requestRender();

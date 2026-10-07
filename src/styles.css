@@ -159,8 +159,8 @@ button { font: inherit; cursor: pointer; }
 .site-credit a:hover { color: var(--ink); }
 .site-credit .dot { margin: 0 6px; }
 
-/* ---------- sidebar ad · ToyBro BD ---------- */
-.ad-card {
+/* ---------- ToyBro BD promo card ---------- */
+.promo-card {
   position: relative;
   flex: 0 0 auto; /* the panel is a flex column — never let the ad collapse */
   display: flex; flex-direction: column; align-items: center; gap: 7px;
@@ -175,25 +175,17 @@ button { font: inherit; cursor: pointer; }
   box-shadow: var(--shadow);
   transition: transform 0.1s ease, box-shadow 0.15s ease;
 }
-.ad-card:hover { transform: translateY(-2px); box-shadow: 0 14px 34px -12px rgba(9, 18, 36, 0.55); }
-.ad-tag {
-  position: absolute; top: 10px; right: 10px;
-  font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em;
-  color: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 5px;
-  padding: 2.5px 6px;
-}
-.ad-chip {
+.promo-card:hover { transform: translateY(-2px); box-shadow: 0 14px 34px -12px rgba(9, 18, 36, 0.55); }
+.promo-chip {
   background: #fff;
   border-radius: 12px;
   padding: 7px 14px;
   box-shadow: 0 6px 18px -6px rgba(0, 0, 0, 0.5);
 }
-.ad-chip img { height: 26px; width: auto; display: block; }
-.ad-head { color: #fff; font-weight: 800; font-size: 15.5px; line-height: 1.25; }
-.ad-sub { color: rgba(199, 210, 232, 0.85); font-size: 11.5px; line-height: 1.4; }
-.ad-cta {
+.promo-chip img { height: 26px; width: auto; display: block; }
+.promo-head { color: #fff; font-weight: 800; font-size: 15.5px; line-height: 1.25; }
+.promo-sub { color: rgba(199, 210, 232, 0.85); font-size: 11.5px; line-height: 1.4; }
+.promo-cta {
   margin-top: 5px;
   display: inline-flex; align-items: center; gap: 6px;
   background: linear-gradient(180deg, #ffd45c, var(--yellow));
@@ -203,7 +195,7 @@ button { font: inherit; cursor: pointer; }
   border-radius: 999px;
   box-shadow: 0 2px 0 var(--yellow-dark);
 }
-.ad-card:hover .ad-cta { filter: brightness(1.05); }
+.promo-card:hover .promo-cta { filter: brightness(1.05); }
 
 /* ---------- editor layout ---------- */
 .editor {
