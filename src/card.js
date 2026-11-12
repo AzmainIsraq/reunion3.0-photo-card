@@ -12,7 +12,7 @@ export const LAYOUT = {
   frame: { x: 280, y: 148, w: 520, h: 520, r: 44, border: 13 },
   titleLogoHeight: 252,   // reunion logo (trimmed) height on card
   titleLogoTop: 678,
-  dateLine1: 'FRIDAY, 16TH OCTOBER, 2026',
+  dateLine1: 'FRIDAY, 13TH NOVEMBER, 2026',
   dateLine2: 'AT DAFFODIL INTERNATIONAL UNIVERSITY',
   stripY: 1014,
   stripH: 66,
@@ -114,6 +114,14 @@ export function decOnGreen(cv) {
   return cv;
 }
 
+export function blackToAlpha(cv) {
+  const ctx = cv.getContext('2d');
+  const id = ctx.getImageData(0, 0, cv.width, cv.height);
+  const d = id.data;
+  for (let i = 0; i < d.length; i += 4) d[i + 3] = Math.max(d[i], d[i + 1], d[i + 2]);
+  ctx.putImageData(id, 0, 0);
+}
+
 // ---- background (procedural grunge, deterministic) --------------------------
 export function paintBackground(ctx, size = CARD) {
   const rnd = mulberry32(20261016);
@@ -210,7 +218,7 @@ export function paintBackground(ctx, size = CARD) {
 
 // ---- assets + static brand layer --------------------------------------------
 export async function prepareAssets() {
-  const [deptRaw, diu, dec, reunion, heart, softbite, goods, brave] = await Promise.all([
+  const [deptRaw, diu, dec, reunion, heart, softbite, goods, brave, green, mrlive, orange] = await Promise.all([
     prepareLogo(new URL('./assets/dept-logo.png', import.meta.url).href, 400),
     prepareLogo(new URL('./assets/diu-logo.png', import.meta.url).href, 400),
     // the white matte must be removed BEFORE the alpha trim
@@ -221,8 +229,12 @@ export async function prepareAssets() {
     prepareLogo(new URL('./assets/partner-goodspacker.png', import.meta.url).href, 1200),
     // the logo sits in a small band of a huge square canvas — keep resolution
     prepareLogo(new URL('./assets/partner-braveheart.png', import.meta.url).href, 2500),
+    // opaque black background → transparent (alpha = brightest channel)
+    prepareLogo(new URL('./assets/partner-green.png', import.meta.url).href, 1200, blackToAlpha),
+    prepareLogo(new URL('./assets/partner-mrlive.png', import.meta.url).href, 600),
+    prepareLogo(new URL('./assets/partner-orange.png', import.meta.url).href, 400),
   ]);
-  return { dept: deptRaw, diu, dec, reunion, heart, softbite, goods, brave };
+  return { dept: deptRaw, diu, dec, reunion, heart, softbite, goods, brave, green, mrlive, orange };
 }
 
 function drawFit(ctx, cv, x, y, h, align = 'center') {
@@ -284,8 +296,11 @@ export function buildBrandLayer(assets) {
   const braveH = 26;
   const braveW = braveH * (assets.brave.width / assets.brave.height);
 
+  const sq = 46;
+  const extra = [assets.green, assets.mrlive, assets.orange].map((a) => ({ a, w: sq * (a.width / a.height) }));
   const gap = 26;
-  const total = labelW + 26 + blW + gap + softW + gap + goodsW + gap + braveW;
+  const total = labelW + 26 + blW + gap + softW + gap + goodsW + gap + braveW
+    + extra.reduce((n, e) => n + gap + e.w, 0);
   let x = (CARD - total) / 2;
   const cy = y0 + h / 2;
 
@@ -304,6 +319,12 @@ export function buildBrandLayer(assets) {
   ctx.drawImage(assets.goods, x, cy - goodsH / 2, goodsW, goodsH);
   x += goodsW + gap;
   ctx.drawImage(assets.brave, x, cy - braveH / 2, braveW, braveH);
+  x += braveW;
+  for (const e of extra) {
+    x += gap;
+    ctx.drawImage(e.a, x, cy - sq / 2, e.w, sq);
+    x += e.w;
+  }
   ctx.restore();
 
   return cv;
