@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Reunion 3.0 photo card maker — remove background, single & bulk edit, 1080x1080 download",
+  "description": "Oytijjer Haat photo card maker — remove background, single & bulk edit, 1080x1080 download",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

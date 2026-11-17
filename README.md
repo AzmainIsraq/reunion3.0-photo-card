@@ -1,8 +1,7 @@
-# Reunion 3.0 · Photo Card Studio
+# Oytijjer Haat · Photo Card Studio
 
-A browser-based photo card maker for the **Entrepreneurs' Reunion 3.0** event
-(Daffodil Entrepreneurs' Club & Department of Innovation & Entrepreneurship,
-Daffodil International University).
+A browser-based photo card maker for the **Oytijjer Haat (ঐতিহ্যের হাট)** event
+(Department of Innovation & Entrepreneurship, Daffodil International University).
 
 Attendees add their photo, the app cuts out the background with on-device AI,
 places it on the official **1080 × 1080** event card, and exports a

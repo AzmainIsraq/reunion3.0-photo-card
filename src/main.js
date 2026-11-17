@@ -303,7 +303,7 @@ async function downloadSingle() {
     const cv = renderToCanvas();
     const type = fmt === 'png' ? 'image/png' : 'image/jpeg';
     const blob = await canvasToBlob(cv, type);
-    saveBlob(blob, `reunion3-card-${fmtName(p)}.${fmt === 'png' ? 'png' : 'jpg'}`);
+    saveBlob(blob, `oytijjer-haat-card-${fmtName(p)}.${fmt === 'png' ? 'png' : 'jpg'}`);
   } finally {
     btn.disabled = false; btn.textContent = '⬇ Download this card';
   }
@@ -330,7 +330,7 @@ async function downloadZip() {
       btn.textContent = `Rendering ${i + 1}/${photos.length}…`;
       renderCard(ctx, brandLayer, assets, p.src, p.cutout, p.transform, p.useCutout, p.caption);
       const blob = await canvasToBlob(cv, type);
-      let name = `reunion3-card-${String(i + 1).padStart(2, '0')}-${fmtName(p)}.${ext}`;
+      let name = `oytijjer-haat-card-${String(i + 1).padStart(2, '0')}-${fmtName(p)}.${ext}`;
       while (used.has(name)) name = name.replace(/(\.\w+)$/, '-x$1');
       used.add(name);
       zip.file(name, blob);
@@ -340,7 +340,7 @@ async function downloadZip() {
     const out = await zip.generateAsync({ type: 'blob' }, (meta) => {
       if (meta.percent && meta.currentFile) updateBulk(`Packing… ${Math.round(meta.percent)}%`);
     });
-    saveBlob(out, `reunion3-photocards-${photos.length}.zip`);
+    saveBlob(out, `oytijjer-haat-photocards-${photos.length}.zip`);
     updateBulk(`ZIP saved — ${photos.length} cards ✓`);
   } catch (err) {
     console.error(err);
